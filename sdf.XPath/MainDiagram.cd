@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="sdf.XPath.Node">
+    <Position X="2.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Node.cs</FileName>
+      <HashCode>QhCAICBgAoQgFEAiQAowwAQUAAQI4GLAAIEoBAoACAA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="sdf.XPath.ObjectXPathContext">
+    <Position X="5.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <FileName>ObjectXPathContext.cs</FileName>
+      <HashCode>QIAAAAAAAAAAAAgAQAgAAAgFJAAAAAEAACAAQAQAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy" Collapsed="true">
+    <Position X="15.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\AnyElementXmlNodeArrayNodePolicy.cs</FileName>
+      <HashCode>AAAEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.XmlNodeNodePolicy" Collapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\XmlNodeNodePolicy.cs</FileName>
+      <HashCode>AAAEAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.CollectionNodePolicyBase" Collapsed="true">
+    <Position X="15.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\CollectionNodePolicyBase.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.DictionaryNodePolicy" Collapsed="true">
+    <Position X="18" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\DictionaryNodePolicy.cs</FileName>
+      <HashCode>AABQAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAABgAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.EnumerableNodePolicy" Collapsed="true">
+    <Position X="13.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\EnumerableNodePolicy.cs</FileName>
+      <HashCode>AABAAAAABAAAAAAAAAIAAAAAAAAAAAAAAAAABAgAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.ExceptionNodePolicy" Collapsed="true">
+    <Position X="9.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\ExceptionNodePolicy.cs</FileName>
+      <HashCode>AAAEAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAABAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.GenericNodePolicy" Collapsed="true">
+    <Position X="14.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\GenericNodePolicy.cs</FileName>
+      <HashCode>CABEQAAAIAAAAAAAAAIAAAAAAAQAAAIAAAAABAAAhAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.InnerNodePolicy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\InnerNodePolicy.cs</FileName>
+      <HashCode>CABGQAAAIAAAAAAAAAICAAAAAAQAAAIAAAAABAAAhAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.ListNodePolicy" Collapsed="true">
+    <Position X="15.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\ListNodePolicy.cs</FileName>
+      <HashCode>AABEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAABAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.MemberNodePolicy" Collapsed="true">
+    <Position X="9.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\MemberNodePolicy.cs</FileName>
+      <HashCode>CABGQAAAIAAAAAAAAAICAAAAAAQAAAIAAAAABAAAhAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.NodePolicyBase" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\NodePolicyBase.cs</FileName>
+      <HashCode>CABCQAAAKAAAAAAAAAICAAAAAAQAAAIAAAAABAAABAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.NullValueNodePolicy" Collapsed="true">
+    <Position X="17.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\NullValueNodePolicy.cs</FileName>
+      <HashCode>AABEAAAAAAAAAAAAAAACAAAAAAQAAAIAAAAAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.RootNodePolicy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\RootNodePolicy.cs</FileName>
+      <HashCode>CABCQAAAIAAAAAAAAAICCAAAAAQAAAIAAAAABAAABAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="sdf.XPath.NodePolicy.TextNodePolicy" Collapsed="true">
+    <Position X="11" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\TextNodePolicy.cs</FileName>
+      <HashCode>AAAEAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAABAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sdf.XPath.NodePolicyFactory" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>NodePolicy\NodePolicyFactory.cs</FileName>
+      <HashCode>AAAAAAAAAIgABAAAAAAAAAAAAAAAACAAAAIAAAAAgAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="sdf.XPath.INodePolicy">
+    <Position X="9.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>INodePolicy.cs</FileName>
+      <HashCode>CABCQAAAIAAAAAAAAAICAAAAAAQAAAIAAAAABAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="sdf.XPath.NodeState">
+    <Position X="0.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Node.cs</FileName>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="sdf.XPath.NodePolicyGetEventHandler" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <FileName>ObjectXPathContext.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Delegate>
+</ClassDiagram>

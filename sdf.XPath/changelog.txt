@@ -1,0 +1,99 @@
+Version 1.6.4.0, October 24, 2012
+Contains a number of fixes made since last record in changelog.
+
+Version 1.4.0.6, March 23, 2005
+
+Fixes:
+- Fixed: XmlNode[] with XmlAnyElementAttribute is now transparent node
+  with transparent children (of type XmlNode).
+- Fixed: HasChildren and HasAttributes incorrectly returned true if node 
+  contains only tranparent children or attributes.
+- Fixed: IList with XmlElementAttribute is now transparent.
+- Fixed: XmlAnyElementAttribute with only name specified takes default 
+  namespace from class' XmlRoot or XmlType attributes.
+- Fixed: InnerNodePolicy was created for objects of simple type.
+- Minor fixes in several policies.
+
+Known issues:
+- Behavior of XmlArrayAttribute is not supported.
+
+
+
+Version 1.4.0.5, March 18, 2005
+
+Features:
+- Added ObjectXPathContext.NodePolicyGet event.
+- New ChildXmlElementAttribute allows for specifying name and namespaces of 
+  child elements of collections.
+- Namespace nodes at nested navigators are not traversed any more.
+- If specific converter is not specified, GetConverter method returns 
+  GenericConverter.
+- Added converters for Single and Double types.
+- Assembly signed with strong name
+- FxCop recommendations applied.
+
+Fixes:
+- Fixed bug with selecting a namespace for element node w/o decorations.
+- Fixed: Directly specified Node.Name and Namespace were not added to the 
+  name table.
+- Fixed: ObjectXPathNavigator.Prefix returns string.Empty.
+- Fixed: Child navigator were returning strings from wrong name table.
+- Fixed identity transform issue.
+
+
+
+Version 1.4.0.0, March 04, 2005
+RC1 version.
+
+Features:
+- Central objects renamed to ObjectXPathNavigator and ObjectXPathContext.
+- Navigator is now must be created via ObjectXPathContext.CreateNavigator 
+  method.
+- Introduced user-implementable INodePolicy instead of INode.
+- Removed the Path concept in favor of specifying Parent at Node object.
+- Node object caches responses from node policy, thus eliminating the need of
+  custom caching mechanism in user's policy implementation.
+- Support for inner XPathNavigators. If node's target object supports 
+  IXPathNavigable, then ObjectXPathNavigator gets the navigator and use it to 
+  descend into object.
+- Removed node policy implementation for XmlNode objects in favor to inner
+  navigators.
+- Better compliance with standard XmlSerializer behavior. Added support for:
+  XmlTextAttribute, XmlElementAttribute.IsNullable property, propagation of
+  namespaces from XmlTypeAttribute and XmlRootAttribute. Inherited elements 
+  and attributes now goes first. Elements in lists and dictionaries now have
+  names defined for their containers, not ther XmlRoot names.
+- Supported inheritance of decorations from implemented interfaces.
+- Null-valued nodes now has xsi:nil attribute.
+- Null-valued attributes are skipped.
+- New attribute TransparentAttribute controls the transparency of member node.
+- New attribute SkipNavigableRootAttribute allows to explicitely make a root
+  node of nested XPathNavigator transparent.
+- New ObjectXPathContext.RegisterNodePolicy method allows to explicitely
+  specify node policy for objects of desired type.
+
+Fixes:
+- Performance improved from 2.5 to 4 times in different scenarious.
+- Fixed bug in GenericNodePolicy: attributes were reported as elements.
+- Node policy type is now fully determined by TypeInfo.
+- Fixed thread-safety issues in ObjectXPathContext.
+
+Known issues:
+- XSLT identity transform doesn't copy attributes with this command: 
+  <xsl:apply-templates select='@*|node()'/>. Two separate "apply-templates" 
+  produce correct result.
+
+Acknowledgements:  
+Big thanks to Craig Neuwirt for helping us with this release.
+
+------------------------------------------------------------------------------
+Version 1.0.0, December 27, 2004
+First public beta release.
+Features:
+- Maps members as elements or attributes.
+- Rename members and assign namespaces to them.
+- "Transparent" child elements.
+- Assign name and namespace to a class.
+- Custom proxies for user types.
+- Shows exceptions as XML-comment nodes.
+- Configurable converters to format objects for text nodes and attributes.

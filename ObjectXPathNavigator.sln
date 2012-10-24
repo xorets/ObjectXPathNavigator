@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdf.XPath", "sdf.XPath\sdf.XPath.csproj", "{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdf.XPath.Test", "sdf.XPath.Test\sdf.XPath.Test.csproj", "{58695B58-05D0-4E2A-9109-E1B31C504E71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58695B58-05D0-4E2A-9109-E1B31C504E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58695B58-05D0-4E2A-9109-E1B31C504E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58695B58-05D0-4E2A-9109-E1B31C504E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58695B58-05D0-4E2A-9109-E1B31C504E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

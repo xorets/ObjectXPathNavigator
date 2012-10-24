@@ -1,0 +1,17 @@
+Performance
+
+LoadInDocument		(1000)		(10000)
+Original:			1.02 sec
+Shared:				0.73 sec
+Policy:				0.47 sec	3.12
+Policy (delegate):				2.7
+RegisterPolicy:					2.55
+1.4.0.5							1.8
+
+Xslt				(1000)
+Original:			2.65 sec
+Shared:				1.65 sec
+Policy:				1.59 sec	11.84
+Policy (delegate):				9.66
+RegisterPolicy:					10.15
+1.4.0.5							5.02

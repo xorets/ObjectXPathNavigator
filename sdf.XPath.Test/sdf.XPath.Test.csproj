@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{58695B58-05D0-4E2A-9109-E1B31C504E71}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>sdf.XPath.Test</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>sdf.XPath.Test</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mvp.Xml">
+      <HintPath>..\packages\Mvp.Xml.2.3.0\lib\net20\Mvp.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnonymousTest.cs" />
+    <Compile Include="ConverterTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CustomProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\IPerson.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\NullReferences.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjChildrenNS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjDefaultNsAnyElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjectWithCustomProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjEnumerableProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjListProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjSkipNavRoot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjTransparentAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ObjXmlElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\PropertyWithFormatter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\SimpleConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\SimpleObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TransparentXmlFragment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TwoTransparentXmlFragments.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\XmlTextAttr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Namespaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NavigatorTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NavigatorUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NavigatorUtilsTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PerformanceTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SerializationTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XsltTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="performance.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sdf.XPath\sdf.XPath.csproj">
+      <Project>{EEB7F9AA-6BEA-47B4-AA7B-C25E1870598C}</Project>
+      <Name>sdf.XPath</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

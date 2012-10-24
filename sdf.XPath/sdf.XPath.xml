@@ -1,0 +1,2005 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>sdf.XPath</name>
+    </assembly>
+    <members>
+        <member name="T:sdf.XPath.ChildXmlElementAttribute">
+            <summary>
+            Specifies what name and namespace should collection elements have.
+            </summary>
+            <remarks>If name and namespace are not specified then name and namespace
+            of child object's type will be taken.</remarks>
+        </member>
+        <member name="M:sdf.XPath.ChildXmlElementAttribute.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.ChildXmlElementAttribute"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ChildXmlElementAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.ChildXmlElementAttribute"/> instance.
+            </summary>
+            <param name="name">The name which child nodes will have.</param>
+        </member>
+        <member name="P:sdf.XPath.ChildXmlElementAttribute.Name">
+            <summary>
+            Gets or sets the name of child nodes.
+            </summary>
+            <value>Name of child nodes.</value>
+        </member>
+        <member name="P:sdf.XPath.ChildXmlElementAttribute.Namespace">
+            <summary>
+            Gets or sets the namespace of child nodes.
+            </summary>
+            <value>Namespace of child nodes.</value>
+            <remarks>If name is set and namespace is not, then empty namespace  
+            will be taken, not type's namespace.</remarks>
+        </member>
+        <member name="T:sdf.XPath.ConverterAttribute">
+            <summary>
+            Indicates that instances of marked type or values of marked members must be 
+            converted to text representation with an instance of given converter type.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ConverterAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of ConverterAttribute class.
+            </summary>
+            <param name="converterType">Type of converter to use.</param>
+            <remarks>
+            Type specified in <paramref name="converterType"/> parameter must implement
+            <see cref="T:sdf.XPath.IConverter"/> interface and 	must have a public constructor 
+            with argument of <see cref="T:System.Type"/> type.</remarks>
+        </member>
+        <member name="P:sdf.XPath.ConverterAttribute.ConverterType">
+            <summary>
+            Gets the type of the converter.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicyAttribute">
+            <summary>
+            Specifies a type that must be used as the policy for a node in object 
+            navigation tree, which corresponds to an instance of the type decorated 
+            with this attribute.
+            </summary>
+            <remarks>
+            Node policy type must implement the <see cref="T:sdf.XPath.INodePolicy"/> interface.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of NodePolicyAttribute class.
+            </summary>
+            <param name="proxyType">The type of node policy.</param>
+            <remarks>
+            Node policy type must implement the <see cref="T:sdf.XPath.INodePolicy"/> interface.
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.NodePolicyAttribute.NodePolicyType">
+            <summary>
+            Gets a type of node policy for decorated type.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.SkipNavigableRootAttribute">
+            <summary>
+            Specifies that <see cref="T:sdf.XPath.ObjectXPathNavigator"/> must skip the root node
+            of the inner navigator if type of member, decorated with this attribute,
+            supports <see cref="T:System.Xml.XPath.IXPathNavigable"/> and at runtime object returs valid
+            navigator.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.SkipNavigableRootAttribute.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.SkipNavigableRootAttribute"/> instance.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.TransparentAttribute">
+            <summary>
+            Explicitely specifies if decorated type member must be a transparent node 
+            or not.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.TransparentAttribute.#ctor(System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.TransparentAttribute"/> instance.
+            </summary>
+            <param name="isTransparent">Is transparent.</param>
+        </member>
+        <member name="P:sdf.XPath.TransparentAttribute.IsTransparent">
+            <summary>
+            Gets a value indicating whether node must be transparent.
+            </summary>
+            <value>
+            <see langword="true"/> if transparent node is required; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="T:sdf.XPath.ConverterFactory">
+            <summary>
+            Used to get converters for types involved in tree traversal.
+            </summary>
+            <remarks>
+            To get the instance of
+            the type use the <see cref="P:sdf.XPath.ObjectXPathContext.ConverterFactory"/> property.
+            </remarks>
+            <threadsafety static="true" instance="true"/>
+        </member>
+        <member name="M:sdf.XPath.ConverterFactory.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:sdf.XPath.ConverterFactory"/> class.
+            </summary>
+            <remarks>
+            The converter factory should not be constructed from your code. The 
+            constructor is public only for test reasons. To get the instance of
+            the type use the <see cref="P:sdf.XPath.ObjectXPathContext.ConverterFactory"/> property.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.ConverterFactory.GetConverter(System.Type)">
+            <summary>
+            Gets a converter for specified type.
+            </summary>
+            <param name="forType">Type of objects the converter will be work with.</param>
+            <returns>Returns the converter which knows how to convert objects of
+            specified type.</returns>
+            <remarks>
+            The type of converter to create is determined at the following:
+            <list type="bullet">
+            <item><description>if <paramref name="forType"/> is enum, then enum conveter
+            will be returned;</description></item>
+            <item><description>if it has the <see cref="T:sdf.XPath.ConverterAttribute"/> 
+            specified, then declared converter type will be used;</description></item>
+            <item><description>if this is primitive type, generic converter;</description></item>
+            <item><description>if no specific converter found, empty converter will
+            be returned.</description></item>
+            </list><br/>
+            The factory caches creates convertes so several trheads could get the same
+            converter object simultaneously.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.ConverterFactory.GetConverter(System.Type,System.Type)">
+            <summary>
+            Gets an instance of specified converter type initialized for given type.
+            </summary>
+            <param name="converterType">Type of converter.</param>
+            <param name="argumentType">Type of objects that will be converted.</param>
+            <returns>Returns the converter of given type, that is ready to work
+            with object of <paramref name="argumentType"/> type.</returns>
+            <remarks>
+            Converter type must implement <see cref="T:sdf.XPath.IConverter"/> interface and has
+            public constructor with argument of <see cref="T:System.Type"/> type.
+            The factory caches creates convertes so several trheads could get the same
+            converter object simultaneously.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.ConverterFactory.RemoveConverter(System.Type)">
+            <summary>
+            Removes a converter for the specified type from cache. 
+            </summary>
+            <param name="forType">Converter for which type should be removed.</param>
+            <returns>Returns the converter instance that was just removed, or 
+            <see langword="null"/> if converter for this type was not cached.</returns>
+        </member>
+        <member name="M:sdf.XPath.ConverterFactory.AddConverter(System.Type,sdf.XPath.IConverter)">
+            <summary>
+            Adds the converter to cache.
+            </summary>
+            <param name="forType">For which type this converter intended.</param>
+            <param name="converter">The converter object.</param>
+            <returns>Returns a converter object from cache.</returns>
+            <remarks>If cache already had the converter for this type, then state
+            of the cache will not be altered, old cached converter will be returned.
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.ConverterFactory.GenericConverter">
+            <summary>
+            Gets the generic converter.
+            </summary>
+            <value>Converter which uses <see cref="M:System.Object.ToString"/> method.</value>
+        </member>
+        <member name="P:sdf.XPath.ConverterFactory.EmptyConverter">
+            <summary>
+            Gets the empty converter.
+            </summary>
+            <value>Converter which always return <see cref="F:System.String.Empty"/>.</value>
+        </member>
+        <member name="T:sdf.XPath.IConverter">
+            <summary>
+            Allows for converting of an object to <see cref="T:System.String"/> and back.
+            </summary>
+            <remarks>
+            Generally, a specific converter implementation is intended for converting
+            values of certain type (or limited number of types).
+            Converter must know how to convert an object to a string. Implementation of 
+            reverse operation is optional. If you decide not to implement it, throw
+            <see cref="T:System.NotImplementedException"/>.<br/>
+            <b>Note for implementors</b><br/> 
+            Your implementation <b>must be thread-safe</b>.<br/>
+            Your converter class <b>must have</b> a public constructor with argument
+            of <see cref="T:System.Type"/> type.</remarks>
+            <threadsafety static="true" instance="true"/>
+        </member>
+        <member name="M:sdf.XPath.IConverter.ToString(System.Object)">
+            <summary>
+            Converts a given object to string representation.
+            </summary>
+            <param name="obj">An object to convert to string.</param>
+            <returns>Returns string representation of the object.</returns>
+        </member>
+        <member name="M:sdf.XPath.IConverter.ParseString(System.String)">
+            <summary>
+            Parses a string representation of an object into an instance of corresponding
+            type. 
+            </summary>
+            <param name="str">A string representing the object.</param>
+            <returns>Returns an object, which value (or state) corresponds to given
+            string.<br/>
+            This method is not necessary to implement. In this case 
+            throw the <see cref="T:System.NotImplementedException"/> exception.</returns>
+        </member>
+        <member name="M:sdf.XPath.ExceptionConverter.ToString(System.Object)">
+            <summary>
+            Converts an exception into string.
+            </summary>
+            <param name="obj">An <see cref="T:System.Exception"/> to convert.</param>
+            <returns>Returns exception info in form "##ExceptionName: Message".</returns>
+        </member>
+        <member name="T:sdf.XPath.INodePolicy">
+            <summary>
+            Defines a contract which must be implemented by any node policy object. 
+            Node policy controls the mapping of an object to the node of XML tree.
+            </summary>
+            <remarks>Almost each <see cref="T:sdf.XPath.Node"/> object has node policy attached. 
+            This policy controls the behavior of the node. The policy of a node
+            could be changed during the node lifetime.<br/>
+            It's important that each node policy object must have static GetPolicy method,
+            which returns an instance of this policy type. It could be either a new or
+            shared instance - it's up to the policy's factory method.<br/>
+            Example factory method:
+            <code>
+            public class ListNodePolicy : GenericNodePolicy 
+            {
+            	private static readonly INodePolicy _instance = new ListNodePolicy();
+            
+            	public static new INodePolicy GetPolicy()
+            	{
+            		return _instance;
+            	}
+            	
+            	...
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)">
+            <summary>
+            Checks the state of the given node and returns a new node policy object
+            if that node's policy must be changed.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>A node policy object or <see langword="null"/>.</returns>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetName(sdf.XPath.Node)">
+            <summary>
+            Gets the name of the node.
+            </summary>
+            <param name="node">A node perform operation for.</param>
+            <returns>Returns the name of the node.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetNamespace(sdf.XPath.Node)">
+            <summary>
+            Gets the namespace of the node.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns the namespace of the node, or <see langword="null"/> if
+            this node has no namespace qualified.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetNodeType(sdf.XPath.Node)">
+            <summary>
+            Gets the node type.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns the type of the node. It could be attribute, element,
+            text node, comment or root node.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            Gets the value of the node.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns the value of the node.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            Gets the transparency flag for the node.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns <see langword="true"/>, if node must be transparent 
+            (i.e. skipped during tree traversal), and <see langword="false"/>, if not.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            Gets the number of the attributes the node has.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns the number of the attributes the node has, or <c>0</c>
+            if it hasn't.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            Gets the node's attribute with specified index.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <param name="index">Zero-based index of the attribute.</param>
+            <returns>Returns the attribute node or <see langword="null"/>.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            Finds the index of attribute with given name and namespace.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <param name="name">The name of the attribute.</param>
+            <param name="ns">The namespace of the attribute.</param>
+            <returns>Returns a zero-based index of desired attribute of the node, or
+            <c>-1</c> if no such attribute is present.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            Gets the number of the children the node has .
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <returns>Returns a number of the node's children (elements, text nodes,
+            comments), or <c>0</c> if node has no children.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            Gets the node's child with given index.
+            </summary>
+            <param name="node">A node to perform operation for.</param>
+            <param name="index">Zero-based index of the child.</param>
+            <returns>Returns a child node or <see langword="null"/> if no child node
+            with given index is present.</returns>
+            <remarks>This method will be called only once. The returned value
+            will be cached in the <see cref="T:sdf.XPath.Node"/> object.</remarks>
+        </member>
+        <member name="T:sdf.XPath.LoopDetectionEventArgs">
+            <summary>
+            Provides data for <see cref="E:sdf.XPath.ObjectXPathContext.LoopDetected"/> event.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.LoopDetectionEventArgs.#ctor(sdf.XPath.ObjectXPathNavigator,sdf.XPath.Node)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.LoopDetectionEventArgs"/> instance.
+            </summary>
+            <param name="navigator"><see cref="T:sdf.XPath.ObjectXPathNavigator"/> Navigator object</param>
+            <param name="node"><see cref="P:sdf.XPath.LoopDetectionEventArgs.Node"/> Node that caused loop appearance</param>
+        </member>
+        <member name="P:sdf.XPath.LoopDetectionEventArgs.Navigator">
+            <summary>
+            Navigator loop to be detected in
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.LoopDetectionEventArgs.IgnoreLoop">
+            <summary>
+            If set to true Navigator will ignore loop warning 
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.LoopDetectionEventArgs.Node">
+            <summary>
+            Node caused loop appearance
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.Node">
+            <summary>
+            Class representing a node of object tree. 
+            </summary>
+            <remarks>
+            All nodes has the same properites but could have different
+            <see cref="T:sdf.XPath.INodePolicy">node policies</see>.<br/>
+            Almost each node represents an object, but there could be three different 
+            states: 
+            <list type="bullet">
+            <item>Target object is know for the node;</item>
+            <item>Target object is not known yet, but node knows parent object and has
+            <see cref="T:sdf.XPath.MemberInfo"/> describing field or property, which must be used
+            to get a target object;</item>
+            <item>Node has tried to resolve target object, but got an exception.</item>
+            </list>
+            In very special cases there could be a node, which neither has and object, nor
+            knows how to get it. An example of such node is text node inside of child 
+            element.<br/>
+            User code usually communicates with nodes only from custom node policies.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.Node.#ctor(sdf.XPath.ObjectXPathContext,sdf.XPath.INodePolicy)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.Node"/> instance.
+            </summary>
+            <param name="context">Context this node belongs to.</param>
+            <param name="policy">The node policy.</param>
+        </member>
+        <member name="M:sdf.XPath.Node.ResolveObject">
+            <summary>
+            Resolves a target object if it is not known.
+            </summary>
+            <remarks>If a target object is not known yet then this method tries
+            to resolve it by getting the value of the corresponding 
+            <see cref="T:sdf.XPath.MemberInfo"/>. In this case state of the node will be changed
+            either to <see cref="F:sdf.XPath.NodeState.ObjectKnown"/> or 
+            <see cref="F:sdf.XPath.NodeState.Exception"/>. After the change the 
+            <see cref="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)"/> method will be called to 
+            change the policy of the node, if current policy will request for it.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.Node.GetAttribute(System.Int32)">
+            <summary>
+            See interface description for details
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.Node.FindAttribute(System.String,System.String)">
+            <summary>
+            See interface description for details
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.Node.GetChild(System.Int32)">
+            <summary>
+            Gets the child element with given index.
+            </summary>
+            <param name="index">Zero-based index of the child node.</param>
+            <returns>A child node (element, text node or comment) with given index;
+            <see langword="null"/> if there is no child node with such index.</returns>
+        </member>
+        <member name="M:sdf.XPath.Node.AddChild(sdf.XPath.Node)">
+            <summary>
+            Adds the child to this node.
+            </summary>
+            <param name="child">Child node to add.</param>
+            <remarks>This method should be used with caution, because it could
+            cause interference with child nodes returned by the node policy.</remarks>
+        </member>
+        <member name="M:sdf.XPath.Node.ResetCache">
+            <summary>
+            Clears the cache of child nodes and attributes.
+            </summary>
+            <remarks>After the cache will be cleared, node will requery its node
+            policy if request for child node or attribute will be issued.</remarks>
+        </member>
+        <member name="F:sdf.XPath.Node.MinimalElementsCacheSize">
+            <summary>
+            Minimal size of elements cache to allocate if we don't know total number
+            of child elements at the creation time.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.Node.CacheChild(System.Int32,sdf.XPath.Node)">
+            <summary>
+            Caches child element.
+            </summary>
+            <param name="i">Zero-based index of child element.</param>
+            <param name="child">Child element to add.</param>
+        </member>
+        <member name="M:sdf.XPath.Node.CacheAttribute(System.Int32,sdf.XPath.Node)">
+            <summary>
+            Caches attribute.
+            </summary>
+            <param name="i">Zero-based index of attribute.</param>
+            <param name="child">Attribute to add..</param>
+        </member>
+        <member name="M:sdf.XPath.Node.ChildFromCache(System.Int32)">
+            <summary>
+            Gets element from cache.
+            </summary>
+            <param name="i">Index of previously cached element.</param>
+            <returns>Returns previously cached with this index child element.</returns>
+        </member>
+        <member name="M:sdf.XPath.Node.AttributeFromCache(System.Int32)">
+            <summary>
+            Gets attribute from cache.
+            </summary>
+            <param name="i">Index of previously cached attribute.</param>
+            <returns>Returns previously cached with this index child element.</returns>
+        </member>
+        <member name="P:sdf.XPath.Node.Context">
+            <summary>
+            Gets the <see cref="T:sdf.XPath.ObjectXPathContext"/> this node belongs to.
+            </summary>
+            <value>A context this node belongs to.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Parent">
+            <summary>
+            Gets or sets the parent node.
+            </summary>
+            <value>The parent of this node.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Index">
+            <summary>
+            Gets or sets the index of this node in the parent node.
+            </summary>
+            <value>Zero based index of this node in its parent node.</value>
+            <remarks>Attributes and child elements are counted differently, so
+            in one parent node could be an attribute and a child element with the
+            same index.</remarks>
+        </member>
+        <member name="P:sdf.XPath.Node.Policy">
+            <summary>
+            Gets or sets the node policy.
+            </summary>
+            <value>The node policy which handles with node.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.State">
+            <summary>
+            Gets the current state of the node.
+            </summary>
+            <value>The current state of the node.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Object">
+            <summary>
+            Gets or sets the target object.
+            </summary>
+            <value>The target object represented by this node.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.ObjectType">
+            <summary>
+            Gets or sets a type descriptor of target object.
+            </summary>
+            <value>A <see cref="T:sdf.XPath.TypeInfo"/> object describing target type of the node.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.AccessException">
+            <summary>
+            Gets or sets the access exception.
+            </summary>
+            <value>An exception which were raised while resolving the object, 
+            or <see langword="null"/> if there were no exception.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Member">
+            <summary>
+            Gets or sets the <see cref="T:sdf.XPath.MemberInfo"/> for this node.
+            </summary>
+            <value>A descriptor of the field or property, corresponding to this 
+            node, or <see langword="null"/> if this was initialized with a 
+            reference to target object.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Name">
+            <summary>
+            Gets or sets the name of the node.
+            </summary>
+            <value>Name of the node in the resulting XML tree.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Namespace">
+            <summary>
+            Gets or sets the namespace of the node.
+            </summary>
+            <value>Fully qualified namespace of the node in the resulting
+            XML tree. Could be <see langword="null"/> if node has no namespace.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.Value">
+            <summary>
+            Gets or sets the value of the node.
+            </summary>
+            <value>Value of the element of attribute.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.IsTransparent">
+            <summary>
+            Gets or sets a value indicating whether this instance is transparent.
+            </summary>
+            <value>
+            	<see langword="true"/> if this instance is transparent; 
+            	otherwise, <see langword="false"/>.
+            </value>
+            <remarks>Transparency allows for making a node which will be skipped
+            during the tree traversal. If transparent node has children, then those
+            children will appear as children of parent of this transparent node.</remarks>
+        </member>
+        <member name="P:sdf.XPath.Node.NodeType">
+            <summary>
+            Gets or sets the node type.
+            </summary>
+            <value>Type of the node.</value>
+            <remarks>
+            Allowed types are:
+            <list type="bullet">
+            <item><see cref="F:System.Xml.XPath.XPathNodeType.Attribute"/></item>
+            <item><see cref="F:System.Xml.XPath.XPathNodeType.Element"/></item>
+            <item><see cref="F:System.Xml.XPath.XPathNodeType.Text"/></item>
+            <item><see cref="F:System.Xml.XPath.XPathNodeType.Comment"/></item>
+            <item><see cref="F:System.Xml.XPath.XPathNodeType.Root"/></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.Node.AttributesCount">
+            <summary>
+            Gets the count of the attributes.
+            </summary>
+            <value>Count of the attributes this node has; <c>0</c> if it hasn't.</value>
+        </member>
+        <member name="P:sdf.XPath.Node.ChildrenCount">
+            <summary>
+            Gets the count of the node's children.
+            </summary>
+            <value>Count of the child elements, text nodes and comments this node has; 
+            <c>0</c> if it hasn't.</value>
+        </member>
+        <member name="T:sdf.XPath.NodeState">
+            <summary>
+            Enumerates possible states of a node object.
+            </summary>
+        </member>
+        <member name="F:sdf.XPath.NodeState.ObjectNotKnown">
+            <summary>
+            Target object is not known yet.
+            </summary>
+        </member>
+        <member name="F:sdf.XPath.NodeState.ObjectKnown">
+            <summary>
+            Object is known, either because it was resolved, or it was given 
+            explicitely.
+            </summary>
+        </member>
+        <member name="F:sdf.XPath.NodeState.Exception">
+            <summary>
+            There were an exception during the resolution of the target object.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicyGetEventArgs">
+            <summary>
+            Provides data for <see cref="E:sdf.XPath.ObjectXPathContext.NodePolicyGet"/> event.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyGetEventArgs.#ctor(System.Object,sdf.XPath.INodePolicy)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicyGetEventArgs"/> instance.
+            </summary>
+            <param name="obj">Object the policy is being created for.</param>
+            <param name="policy">Proposed policy.</param>
+        </member>
+        <member name="P:sdf.XPath.NodePolicyGetEventArgs.Obj">
+            <summary>
+            The object the policy is being obtained for.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.NodePolicyGetEventArgs.Policy">
+            <summary>
+            The resulting policy.
+            </summary>
+            <remarks>
+            When the event is fired, this property contains the reference to a policy
+            which was selected by standard algorithm (or other consumers of this 
+            event). Event handler could either specify other policy or leave it intact.
+            </remarks>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy">
+            <summary>
+            Node policy for properties of type XmlNode[] decorated with
+            <see cref="T:System.Xml.Serialization.XmlAnyElementAttribute"/>.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.ListNodePolicy">
+            <summary>
+            Implementation of node policy for handling nodes, associated with objects
+            implementing <see cref="T:System.Collections.IList"/> interface.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.CollectionNodePolicyBase">
+            <summary>
+            Base class from all collection nodes.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.GenericNodePolicy">
+            <summary>
+            Generic node policy implementation.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.NodePolicyBase">
+            <summary>
+            An abstact base class for implementation of node policy.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetNewPolicy(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetName(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetName(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetNamespace(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNamespace(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetNodeType(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNodeType(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NodePolicyBase.PolicyChanged(sdf.XPath.Node)">
+            <summary>
+            Checks if policy was changed.
+            </summary>
+            <param name="node">The node to check policy.</param>
+            <returns><see langword="true"/> if node's policy is not the same as this
+            one, and <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.GenericNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetNewPolicy(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetName(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetName(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetNamespace(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNamespace(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.GenericNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.CollectionNodePolicyBase.CreateChildNode(System.Object,sdf.XPath.Node)">
+            <summary>
+            Creates the child node.
+            </summary>
+            <param name="child">Child object.</param>
+            <param name="node">The collection node.</param>
+            <returns>Returns new child node representing given child object.</returns>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ListNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ListNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.ListNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ListNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ListNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ListNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.AnyElementXmlNodeArrayNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.DictionaryNodePolicy">
+            <summary>
+            Node policy realization for classes implementing <see cref="T:System.Collections.IDictionary"/>
+            interface.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.DictionaryNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.DictionaryNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.DictionaryNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.DictionaryNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.DictionaryNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.DictionaryNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.EnumerableNodePolicy">
+            <summary>
+            Custom <see cref="T:sdf.XPath.INodePolicy"/> implementations.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.DictionaryNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.EnumerableNodePolicy.PrepareElements(System.Object)">
+            <summary>
+            Prepares the enumerated elements.
+            </summary>
+            <param name="source">An <see cref="T:System.Collections.IEnumerable"/> or 
+            <see cref="T:System.Collections.IEnumerator"/>.</param>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.ExceptionNodePolicy">
+            <summary>
+            Implementation of node policy for handling nodes with member access 
+            exceptions.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ExceptionNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ExceptionNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.ExceptionNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ExceptionNodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ExceptionNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.ExceptionNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.InnerNodePolicy">
+            <summary>
+            Node policy handling inner text or comments node.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.InnerNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetNewPolicy(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetName(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetName(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetNamespace(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNamespace(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetNodeType(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNodeType(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.InnerNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.MemberNodePolicy">
+            <summary>
+            Node policy for a node created for a still unresolved object's field or 
+            property.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.MemberNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetNewPolicy(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNewPolicy(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetName(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetName(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetNamespace(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNamespace(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetNodeType(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetNodeType(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.MemberNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicyFactory">
+            <summary>
+            Class for creating node policies on request.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyFactory.#ctor(sdf.XPath.ObjectXPathContext)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicyFactory"/> instance.
+            </summary>
+            <param name="context">Context to which this factory will belong.</param>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyFactory.CreatePolicy(System.Type)">
+            <summary>
+            Creates the policy of given type.
+            </summary>
+            <param name="policyType">Type of policy to create.</param>
+            <returns>An instance of the requested policy type.</returns>
+            <remarks>This could be either new instance, created especially for
+            this request, or instance shared by other nodes. This behavior is
+            solely determined by GetPolicy method of given policy type.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyFactory.GetPolicy(System.Type)">
+            <summary>
+            Gets the policy for specific type of objects.
+            </summary>
+            <param name="forType">The type of objects which will be serverd by the
+            policy.</param>
+            <returns>An policy responsible for handling object of specified type.</returns>
+            <remarks>This could be either new instance, created especially for
+            this request, or instance shared by other nodes. This behavior is
+            solely determined by GetPolicy method of given policy type.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicyFactory.RegisterPolicy(System.Type,System.Type)">
+            <summary>
+            Registers the type of policies for handling object of specified type.
+            </summary>
+            <param name="forType">For which type of object this policy will be used.</param>
+            <param name="policyType">Policy type.</param>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.NullValueNodePolicy">
+            <summary>
+            Node policy for handling member nodes resolved to <see langword="null"/>.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.NullValueNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.GetAttributesCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttributesCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetAttribute(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.NullValueNodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.FindAttribute(sdf.XPath.Node,System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.TextNodePolicy">
+            <summary>
+            Node policy for nodes related to objects of simple type, or nodes with 
+            converter explicitely defined.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.TextNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.TextNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.TextNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.TextNodePolicy.GetValue(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetValue(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.TextNodePolicy.GetChildrenCount(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChildrenCount(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.TextNodePolicy.GetChild(sdf.XPath.Node,System.Int32)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetChild(sdf.XPath.Node,System.Int32)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicy.XmlNodeNodePolicy">
+            <summary>
+            Node policy for nodes related to instances of <see cref="T:System.Xml.XmlNode"/> or its 
+            descendants.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.XmlNodeNodePolicy.GetPolicy">
+            <summary>
+            Gets the node policy object.
+            </summary>
+            <returns>Returns an instance of this node policy.</returns>
+            <remarks>This node policy object is stateless so all nodes shares
+            the same instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.XmlNodeNodePolicy.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.NodePolicy.XmlNodeNodePolicy"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodePolicy.XmlNodeNodePolicy.GetIsTransparent(sdf.XPath.Node)">
+            <summary>
+            See <see cref="M:sdf.XPath.INodePolicy.GetIsTransparent(sdf.XPath.Node)"/> for details.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodePolicyGetEventHandler">
+            <summary>
+            Represents with method which will be called to handler 
+            <see cref="E:sdf.XPath.ObjectXPathContext.NodePolicyGet"/> event.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.LoopDetectedEventHandler">
+            <summary>
+            Represent loop detection event
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.ObjectXPathContext">
+            <summary>
+            Defines a context that is shared by all object nodes related to 
+            the same object navigation tree. 
+            </summary>
+        </member>
+        <member name="F:sdf.XPath.ObjectXPathContext.Xsi">
+            <summary>
+            Standard Xml Schema Instance namespace.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.ObjectXPathContext"/> instance.
+            </summary>
+            <remarks>New instance will use new namespace manager instance.</remarks>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.#ctor(System.Xml.XmlNamespaceManager)">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.ObjectXPathContext"/> instance with given 
+            namespace manager.
+            </summary>
+            <param name="nsmgr">A namespace manager that will be used to
+            resolve elements' namespace to a prefix.</param>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.#ctor(sdf.XPath.ObjectXPathContext)">
+            <summary>
+            Creates a copy of given context. Contexts shares the same name table,
+            namespace manager, and factories.
+            </summary>
+            <param name="other">An instance of <see cref="T:sdf.XPath.ObjectXPathContext"/> to 
+            copy.</param>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.CreateNavigator(System.Object)">
+            <summary>
+            Creates the <see cref="T:sdf.XPath.ObjectXPathNavigator"/> rooted at given object.
+            </summary>
+            <param name="obj">Object which will be a root of navigation tree.</param>
+            <returns>New instance of <see cref="T:sdf.XPath.ObjectXPathNavigator"/> positioned
+            at the node, corresponding to the given object.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.GetNodePolicy(System.Object)">
+            <summary>
+            Creates a node policy for given object instance. 
+            </summary>
+            <param name="obj">An object to create node policy for.</param>
+            <returns>An object implementing <see cref="T:sdf.XPath.INodePolicy"/> interface
+            which should be used to map this object to the tree node.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.CreateNodePolicy(System.Type)">
+            <summary>
+            Creates the node policy object of the given type.
+            </summary>
+            <param name="policyType">Type of policy object to be created.</param>
+            <returns>An instance of the given type.</returns>
+            <remarks>The object returned could be either new instance, created 
+            especially for
+            this request, or instance shared by other nodes. This behavior is
+            solely determined by static GetPolicy method of given policy type.</remarks>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.RegisterNodePolicy(System.Type,System.Type)">
+            <summary>
+            Registers the node policy for specific type of objects.
+            </summary>
+            <param name="forType">Objects of which type are handled by given policy type.</param>
+            <param name="policyType">Policy type.</param>
+            <remarks>If you register a policy for base type or interface then
+            this policy will be used also for all derived types or types that 
+            implement this interface. <br/>
+            If both base type and interface has policies
+            registered, then policy of base type will be used.<br/>
+            If several implemented interfaces has policies registered, then it's
+            not possible to predict which interface's policy will be taken.</remarks>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathContext.OnLoopDetected(sdf.XPath.LoopDetectionEventArgs)">
+            <summary>
+            Called by ObjectXPathNavigator when it detects a loop inside object hierarchy
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathContext.NameTable">
+            <summary>
+            Gets a name table, this context works with.
+            </summary>
+            <value>An instance of <see cref="T:System.Xml.XmlNameTable"/> that stores all string
+            values used during tree traversal.</value>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathContext.NamespaceManager">
+            <summary>
+            Gets a namespace manager that is used to map elements' namespace to a 
+            prefix.
+            </summary>
+            <value>An instance of <see cref="T:System.Xml.XmlNamespaceManager"/>.</value>
+            <remarks>Tree nodes (objects and their members) are marked with 
+            attributes from <see cref="N:System.Xml.Serialization"/> namespace that
+            difine only fully qualified namespace but do not define prefix. If you 
+            want your namespaces to have certain prefixes, appropriate mapping should
+            be added to this namespace manager.</remarks>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathContext.TypeInfoCache">
+            <summary>
+            Gets a cache of types descriptors.
+            </summary>
+            <value>An instance of <see cref="P:sdf.XPath.ObjectXPathContext.TypeInfoCache"/> object providing
+            access to types descriptors (<see cref="T:sdf.XPath.TypeInfo"/>).</value>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathContext.ConverterFactory">
+            <summary>
+            Gets a converter factory which is used during the conversion of values of
+            complexly typed class members to string representation.
+            </summary>
+            <value>An instance of <see cref="P:sdf.XPath.ObjectXPathContext.ConverterFactory"/> class.</value>
+            <remarks>
+            The converter factory will automatically create converters for types marked
+            with <see cref="T:sdf.XPath.ConverterAttribute"/> attribute. You can also add
+            a custom converter for a specific type. 
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathContext.DetectLoops">
+            <summary>
+            If set to true ObjectXPath navigator will detect loops and raise <see cref="E:sdf.XPath.ObjectXPathContext.LoopDetected"/>LoopDetected events
+            </summary>
+        </member>
+        <member name="E:sdf.XPath.ObjectXPathContext.NodePolicyGet">
+            <summary>
+            Occurs during getting of node policy for an object. Event is fired after
+            a policy was selected by standard method, so event consumers could
+            specify other policy.
+            </summary>
+        </member>
+        <member name="E:sdf.XPath.ObjectXPathContext.LoopDetected">
+            <summary>
+            Occurs when loop inside object hierarchy was detected.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.ObjectXPathNavigator">
+            <summary>
+            Implements XPathNavigator to navigate a graph of generic objects.
+            </summary>
+            <remarks>
+            Note that object's properties and contents of some collections will be resolved
+            only once during tree traversal. This means that if navigator has visited
+            some object then it will remember the state of this object as it was on the 
+            moment of first visit. Any change to the object's state will be seen only to 
+            another navigator, either created after this change was made, or which simply 
+            was not visiting this object yet.
+            </remarks>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.#ctor(sdf.XPath.ObjectXPathNavigator)">
+            <summary>
+            Creates a new navigator positioned at the same node as other navigator.
+            </summary>
+            <param name="other">Navigator to be copied</param>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObject(System.String)">
+            <summary>
+            Selects a single object from the current node.
+            </summary>
+            <param name="xpath">Selection expression.</param>
+            <returns>Returns the first object found by the expression or <see langword="null"/>.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String,System.Type)">
+            <summary>
+            Selects a group of objects from the current node.
+            </summary>
+            <param name="xpath">Selection expression.</param>
+            <param name="returnItemType">Type of array elements to be returned.</param>
+            <returns>Returns an array with all the objects found
+            by the expression.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String)">
+            <summary>
+            Selects a group of objects from the current node.
+            </summary>
+            <param name="xpath">Selection expression.</param>
+            <returns>Returns an array with all the objects found
+            by the expression.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.Clone">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.Clone"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.GetAttribute(System.String,System.String)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.GetAttribute(System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.GetNamespace(System.String)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.GetNamespace(System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.IsSamePosition(System.Xml.XPath.XPathNavigator)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.IsSamePosition(System.Xml.XPath.XPathNavigator)"/> for details.
+            </summary>
+            <returns>Returns <see langword="true"/> if this navigator is positioned
+            at the same node as other navigator, and <see langword="false"/>
+            otherwise.</returns>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveTo(System.Xml.XPath.XPathNavigator)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveTo(System.Xml.XPath.XPathNavigator)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToAttribute(System.String,System.String)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToAttribute(System.String,System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToFirst">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToFirst"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToFirstAttribute">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToFirstAttribute"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToFirstChild">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToFirstChild"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.GetNavigationStack">
+            <summary>
+            Stack content in text format
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.GetCurrentNodePath">
+            <summary>
+            Path of current node
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToFirstNamespace(System.Xml.XPath.XPathNamespaceScope)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToFirstNamespace(System.Xml.XPath.XPathNamespaceScope)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToId(System.String)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToId(System.String)"/> for details.
+            </summary>
+            <remarks>Not supported.</remarks>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToNamespace(System.String)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToNamespace(System.String)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToNext">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToNext"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToPrevious">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToPrevious"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToNextAttribute">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToNextAttribute"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToNextNamespace(System.Xml.XPath.XPathNamespaceScope)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToNextNamespace(System.Xml.XPath.XPathNamespaceScope)"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToParent">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToParent"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.MoveToRoot">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.MoveToRoot"/> for details.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.ObjectXPathNavigator.ComparePosition(System.Xml.XPath.XPathNavigator)">
+            <summary>
+            See <see cref="M:System.Xml.XPath.XPathNavigator.ComparePosition(System.Xml.XPath.XPathNavigator)"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.NamespaceManager">
+            <summary>
+            Gets a <see ref="XmlNamespaceManager"/> used to resolve prefixes for
+            namespaces.
+            </summary>
+            <value>A namespace manager that shows which prefixes we wish to use for
+            object namespaces.</value>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.BaseURI">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.BaseURI"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.HasAttributes">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.HasAttributes"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.HasChildren">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.HasChildren"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.IsEmptyElement">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.IsEmptyElement"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.LocalName">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.LocalName"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.Name">
+            <summary>
+            Gets a fully qualified name of the node.
+            </summary>
+            <value>Fully qualified name of the node.</value>
+            <remarks><see cref="P:sdf.XPath.ObjectXPathNavigator.NamespaceManager"/> will be used to resolve a prefix
+            for node's namespace. If no prefix could be found, then name without a
+            prefix will be returned.</remarks>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.NamespaceURI">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.NamespaceURI"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.NameTable">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.NameTable"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.NodeType">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.NodeType"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.Value">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathItem.Value"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.Object">
+            <summary>
+            The current object.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.XmlLang">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.XmlLang"/> for details.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.ObjectXPathNavigator.Prefix">
+            <summary>
+            See <see cref="P:System.Xml.XPath.XPathNavigator.Prefix"/> for details.
+            </summary>
+            <remarks>Prefix is beeng looked up in the <see cref="P:sdf.XPath.ObjectXPathNavigator.NamespaceManager"/>.</remarks>
+        </member>
+        <member name="T:sdf.XPath.MemberInfo">
+            <summary>
+            Provides the abstract base class for a class members descriptors.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.NodeInfo">
+            <summary>
+            Abstract base class for holding type or member decorations with attributes.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.NodeInfo.Add(System.Object)">
+            <summary>
+            Adds new attribute to the node decorations.
+            </summary>
+            <param name="attr">An attriubute.</param>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.NodePolicy">
+            <summary>
+            Gets the NodePolicyAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.Converter">
+            <summary>
+            Gets the ConverterAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.Transparent">
+            <summary>
+            Gets the TransparentAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.SkipNavigableRoot">
+            <summary>
+            Gets the SkipNavigableRootAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.ChildXmlElementName">
+            <summary>
+            Gets the ChildXmlElementAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlRoot">
+            <summary>
+            Gets the XmlRootAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlAttribute">
+            <summary>
+            Gets the XmlAttributeAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlElement">
+            <summary>
+            Gets the XmlElementAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlAnyElement">
+            <summary>
+            Gets the XmlAnyElementAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlText">
+            <summary>
+            Gets the XmlTextAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlIgnore">
+            <summary>
+            Gets the XmlIgnoreAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.XmlType">
+            <summary>
+            Gets the XmlTypeAttribute.
+            </summary>
+            <value>An instance of the attribute if one is specified.</value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.IsNullable">
+            <summary>
+            Gets a value indicating whether this node is nullable.
+            </summary>
+            <value>
+            	<c>true</c> if this node is nullable; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.Namespace">
+            <summary>
+            Gets the element namespace.
+            </summary>
+            <value>The quilified namespace of an XML element representing the instance 
+            of the described class when it is mapped by the navigator.</value>
+            <remarks>Namespace must be specified by means of 
+            <see cref="T:System.Xml.Serialization.XmlRootAttribute"/>. <br/>
+            Take in attention that this namespace will no be used when object is accessed
+            through a property of other object. In this case it will have the namespace
+            of the property.
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.NodeInfo.ConverterType">
+            <summary>
+            Type of converter for this type or member.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.MemberInfo.#ctor">
+            <summary>
+            Creates a new <see cref="T:sdf.XPath.MemberInfo"/> instance.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.MemberInfo.GetValue(System.Object)">
+            <summary>
+            When overridden in derived class gets a value of the member in given instance.
+            </summary>
+            <param name="instance">The object instance to get member value for.</param>
+            <returns>Returns a value of corresponding member of given object.</returns>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.NodeType">
+            <summary>
+            Gets a XPath node type of the member.
+            </summary>
+            <value>A value of <see cref="T:System.Xml.XPath.XPathNodeType"/> enumeration.</value>
+            <remarks>Generally, only Element and Attribute types are expeced.</remarks>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.Name">
+            <summary>
+            Gets a name of the node for this member.
+            </summary>
+            <value>A name which will be used when mapping this member to XML tree.</value>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.Type">
+            <summary>
+            Gets a type of this member.
+            </summary>
+            <value>A type of the member.</value>
+            <example>
+            <code>
+            class Dog 
+            {
+              public string Name;
+            }
+            </code>
+            The member info for a Name field will have a type of <see cref="T:System.String"/>.
+            </example>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.Index">
+            <summary>
+            Gets or sets an index of the member in owning class.
+            </summary>
+            <value>Zero-based index of the member in its owner class.</value>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.IsTransparent">
+            <summary>
+            Gets or sets a transparency flag for the member.
+            </summary>
+            <value><see langword="true"/> if this member is transparent,
+            <see langword="false"/> otherwise.</value>
+            <remarks>
+            Member could be marked as transparent using the 
+            <see cref="T:System.Xml.Serialization.XmlAnyElementAttribute"/>. For more 
+            information on transparency see remarks on <see cref="P:sdf.XPath.Node.IsTransparent"/>
+            property.
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.MemberInfo.ConverterType">
+            <summary>
+            Gets or sets the type of value converter for this member.
+            </summary>
+            <value>A type of converter which must be used to convert a value of
+            this member to the string form or vice versa. </value>
+            <remarks>
+            If it is equal to <see langword="null"/> then default conversion rules 
+            should be employed.
+            </remarks>
+        </member>
+        <member name="T:sdf.XPath.PropertyInfo">
+            <summary>
+            Implementation of MemberInfo for properties.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.FieldInfo">
+            <summary>
+            Implementation of MemberInfo for fields.
+            </summary>
+        </member>
+        <member name="T:sdf.XPath.TypeInfo">
+            <summary>
+            Contains an information about a type, which used for exposing members of 
+            this type's instance to <see cref="T:sdf.XPath.ObjectXPathNavigator"/>.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.TypeInfo.#ctor(System.Type)">
+            <summary>
+            Constructs a descriptor of given type.
+            </summary>
+            <param name="type">A type to build type info for.</param>
+        </member>
+        <member name="M:sdf.XPath.TypeInfo.GetElements">
+            <summary>
+            Gets the array of all child elements.
+            </summary>
+            <returns>An array of <see cref="T:sdf.XPath.MemberInfo"/> objects.</returns>
+            <remarks>Both elements and attributes consists of public members (fields and
+            properties) of the class. Members marked with 
+            <see cref="T:System.Xml.Serialization.XmlAttributeAttribute"/> attribute will 
+            be represented by attribute nodes. Members with 
+            <see cref="T:System.Xml.Serialization.XmlElementAttribute"/> attribute will 
+            be rendered as child elements.</remarks>
+        </member>
+        <member name="M:sdf.XPath.TypeInfo.GetAttributes">
+            <summary>
+            Gets the array of all element's attributes.
+            </summary>
+            <returns>An array of <see cref="T:sdf.XPath.MemberInfo"/> objects.</returns>
+            <remarks>Both elements and attributes consists of public members (fields and
+            properties) of the class. Members marked with 
+            <see cref="T:System.Xml.Serialization.XmlAttributeAttribute"/> attribute will 
+            be represented by attribute nodes. Members with 
+            <see cref="T:System.Xml.Serialization.XmlElementAttribute"/> attribute will 
+            be rendered as child elements.</remarks>
+        </member>
+        <member name="M:sdf.XPath.TypeInfo.GetAttribute(System.String,System.String)">
+            <summary>
+            Searches for the attribute with specific name and namespace.
+            </summary>
+            <param name="name">The name of the attribute.</param>
+            <param name="ns">The namespace of the attribute.</param>
+            <returns>Returns a <see cref="T:sdf.XPath.MemberInfo"/> object, describing the 
+            required attribute, or <see langword="null"/>.</returns>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.Type">
+            <summary>
+            Gets a <see cref="T:System.Type"/> described by this type info.
+            </summary>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.Name">
+            <summary>
+            Gets the element name.
+            </summary>
+            <value>The name of an XML element representing the instance of the described class 
+            when it is mapped by the navigator.</value>
+            <remarks>Name must be specified by means of 
+            <see cref="T:System.Xml.Serialization.XmlRootAttribute"/>. <br/>
+            Take in attention that this name will no be used when object is accessed
+            through a property of other object. In this case it will be known by the 
+            name of the property.
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.IsSimpleType">
+            <summary>
+            Indicates if this type is simple.
+            </summary>
+            <value><see langword="true"/> if this type is simple, 
+            <see langword="false"/> otherwise.</value>
+            <remarks>Simple types doesn't have attributes and child elements. Their
+            value is directly mapped to the string.<br/>
+            The type is simple if:
+            <list type="bullet">
+            <item><description>it is primitive (<see cref="P:System.Type.IsPrimitive"/>),</description></item>
+            <item><description>it is <see cref="T:System.String"/> or <see cref="T:System.DateTime"/>,</description></item>
+            <item><description>it is an enum.</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.IsXPathNavigable">
+            <summary>
+            Gets a value indicating whether this type support 
+            <see cref="T:System.Xml.XPath.IXPathNavigable"/> interface.
+            </summary>
+            <value>
+            	<c>true</c> if this supports the interface; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.PolicyType">
+            <summary>
+            Gets the type of a proxy object (node).
+            <seealso cref="T:sdf.XPath.NodePolicyAttribute"/>
+            </summary>
+            <value>The type of the proxy for instances of described type.</value>
+        </member>
+        <member name="P:sdf.XPath.TypeInfo.ConverterType">
+            <summary>
+            Gets the type of the converter.
+            <seealso cref="T:sdf.XPath.ConverterAttribute"/>
+            </summary>
+            <value>The type of the converter for values of this type.</value>
+        </member>
+        <member name="T:sdf.XPath.TypeInfoCache">
+            <summary>
+            A cache of type descriptors.
+            </summary>
+            <remarks>
+            Take in attention that there should be only one instance of the cache in an
+            application. This would guarantee that each type will be described (via
+            <see cref="T:sdf.XPath.TypeInfo"/> class) only once, reducing memeory usage and improving
+            performance. <br/>
+            To get the instance of TypeInfoCache class use <see cref="P:sdf.XPath.TypeInfoCache.Instance"/>
+            property.
+            </remarks>
+            <threadsafety static="true" instance="true"/>
+        </member>
+        <member name="M:sdf.XPath.TypeInfoCache.#cctor">
+            <summary>
+            Static constructor. Initializes Instance field.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.TypeInfoCache.#ctor">
+            <summary>
+            Constructs an empty TypeInfoCache.
+            </summary>
+        </member>
+        <member name="M:sdf.XPath.TypeInfoCache.GetTypeInfo(System.Object)">
+            <summary>
+            Describe the type of the given object. 
+            </summary>
+            <param name="o">The object to get type information for.</param>
+            <returns>Returns an instance of <see cref="T:sdf.XPath.TypeInfo"/> class describing the
+            type of the given object.</returns>
+        </member>
+        <member name="M:sdf.XPath.TypeInfoCache.GetTypeInfo(System.Type)">
+            <summary>
+            Describe the given type.
+            </summary>
+            <param name="type">The type to get information for.</param>
+            <returns>Returns an instance of <see cref="T:sdf.XPath.TypeInfo"/> class describing the
+            given type.</returns>
+        </member>
+        <member name="P:sdf.XPath.TypeInfoCache.Instance">
+            <summary>
+            Provides access to TypeInfoCache singleton instance. 
+            </summary>
+            <value>
+            The instance of <see cref="T:sdf.XPath.TypeInfoCache"/> class.
+            </value>
+        </member>
+        <member name="P:sdf.XPath.TypeInfoCache.StringTypeInfo">
+            <summary>
+            Get type info for <see cref="T:System.String"/> type.
+            </summary>
+            <remarks>
+            For performance reasons type information for <see cref="T:System.String"/>
+            is cached separately.
+            </remarks>
+        </member>
+    </members>
+</doc>
