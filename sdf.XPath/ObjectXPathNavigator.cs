@@ -882,6 +882,14 @@ namespace sdf.XPath
 			}
 		}
 
+		public override object UnderlyingObject
+		{
+			get
+			{
+				return this.Object;
+			}
+		}
+
 		/// <summary>
 		/// See <see cref="System.Xml.XPath.XPathNavigator.XmlLang" /> for details.
 		/// </summary>
