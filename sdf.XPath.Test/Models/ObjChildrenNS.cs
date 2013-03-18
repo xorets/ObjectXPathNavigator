@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Specialized;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 

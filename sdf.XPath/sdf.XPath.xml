@@ -1437,27 +1437,30 @@
             </summary>
             <param name="other">Navigator to be copied</param>
         </member>
-        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObject(System.String)">
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObject(System.String,System.Xml.IXmlNamespaceResolver)">
             <summary>
             Selects a single object from the current node.
             </summary>
             <param name="xpath">Selection expression.</param>
+            <param name="nsResolver">Optional namespace resolver.</param>
             <returns>Returns the first object found by the expression or <see langword="null"/>.</returns>
         </member>
-        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String,System.Type)">
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String,System.Type,System.Xml.IXmlNamespaceResolver)">
             <summary>
             Selects a group of objects from the current node.
             </summary>
             <param name="xpath">Selection expression.</param>
             <param name="returnItemType">Type of array elements to be returned.</param>
+            <param name="nsResolver">Optional namespace resolver.</param>
             <returns>Returns an array with all the objects found
             by the expression.</returns>
         </member>
-        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String)">
+        <member name="M:sdf.XPath.ObjectXPathNavigator.SelectObjects(System.String,System.Xml.IXmlNamespaceResolver)">
             <summary>
             Selects a group of objects from the current node.
             </summary>
             <param name="xpath">Selection expression.</param>
+            <param name="nsResolver">Optional namespace resolver.</param>
             <returns>Returns an array with all the objects found
             by the expression.</returns>
         </member>

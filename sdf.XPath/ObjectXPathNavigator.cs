@@ -60,10 +60,11 @@ namespace sdf.XPath
 		/// Selects a single object from the current node.
 		/// </summary>
 		/// <param name="xpath">Selection expression.</param>
+		/// <param name="nsResolver">Optional namespace resolver.</param>
 		/// <returns>Returns the first object found by the expression or <see langword="null"/>.</returns>
-		public object SelectObject( string xpath )
+		public object SelectObject( string xpath, IXmlNamespaceResolver nsResolver = null )
 		{
-			var i = Select( xpath );
+			var i = Select( xpath, nsResolver );
 			return i.MoveNext() ? ( (ObjectXPathNavigator)i.Current ).Object : null;
 		}
 
@@ -72,15 +73,16 @@ namespace sdf.XPath
 		/// </summary>
 		/// <param name="xpath">Selection expression.</param>
 		/// <param name="returnItemType">Type of array elements to be returned.</param>
+		/// <param name="nsResolver">Optional namespace resolver.</param>
 		/// <returns>Returns an array with all the objects found
 		/// by the expression.</returns>
-		public Array SelectObjects( string xpath, Type returnItemType )
+		public Array SelectObjects( string xpath, Type returnItemType, IXmlNamespaceResolver nsResolver = null )
 		{
 			if( null == returnItemType )
 				throw new ArgumentNullException( "returnItemType" );
 
 			var result = new ArrayList();
-			var i = Select( xpath );
+			var i = Select( xpath, nsResolver );
 			while( i.MoveNext() )
 				result.Add( ( (ObjectXPathNavigator)i.Current ).Object );
 			return result.ToArray( returnItemType );
@@ -90,11 +92,12 @@ namespace sdf.XPath
 		/// Selects a group of objects from the current node.
 		/// </summary>
 		/// <param name="xpath">Selection expression.</param>
+		/// <param name="nsResolver">Optional namespace resolver.</param>
 		/// <returns>Returns an array with all the objects found
 		/// by the expression.</returns>
-		public object[] SelectObjects( string xpath )
+		public object[] SelectObjects( string xpath, IXmlNamespaceResolver nsResolver = null )
 		{
-			return (object[])SelectObjects( xpath, typeof( object ) );
+			return (object[])SelectObjects( xpath, typeof( object ), nsResolver );
 		}
 
 		/// <summary>

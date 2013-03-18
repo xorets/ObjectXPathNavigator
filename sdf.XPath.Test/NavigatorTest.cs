@@ -206,6 +206,7 @@ namespace sdf.XPath.Test
 				</simple>
 			" );
 		}
+
 		[Test]
 		public void NullStringProperty()
 		{
@@ -231,11 +232,11 @@ namespace sdf.XPath.Test
 		public void XmlTextNullAttribute()
 		{
 			Compare( new XmlTextNullContainer(), @"
-                <XmlTextNullContainer>
-                    <Type Attrib='attribute1'></Type>
-                    <Name>Hello</Name>
-                </XmlTextNullContainer>
-                " );
+				<XmlTextNullContainer>
+					<Type Attrib='attribute1'></Type>
+					<Name>Hello</Name>
+				</XmlTextNullContainer>
+				" );
 		}
 
 		[Test]
@@ -464,6 +465,22 @@ namespace sdf.XPath.Test
 					</Tables>
 				</DataSet>
 			" );
+		}
+
+		[Test]
+		public void SelectObjectTest()
+		{
+			var obj = new ObjChildrenNS( true );
+
+			var context = new ObjectXPathContext();
+			context.NamespaceManager.AddNamespace( "sdf", Namespaces.SDF );
+			var nav = context.CreateNavigator( obj ) as ObjectXPathNavigator;
+
+			var str1 = nav.SelectObject( "/*/child4" );
+			var str2 = nav.SelectObject( "/sdf:XmlObjectWithAttribs/sdf:child2", context.NamespaceManager );
+
+			Assert.AreEqual( "7", str1 );
+			Assert.AreEqual( "5", str2 );
 		}
 
 	}
